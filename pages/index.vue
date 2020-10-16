@@ -3,7 +3,7 @@
     <div>
       <Logo />
       <h1 class="title">
-        nuxt-autodeploy-test
+        nuxt-autodeploy
       </h1>
       <div class="links">
         <a
