@@ -1,5 +1,5 @@
 build:
-  image: node:8
+  image: node:10-alpine
   stage: build
   only:
     - master
