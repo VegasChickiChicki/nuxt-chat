@@ -6,29 +6,38 @@
         nuxt-autodeploy 152515
       </h1>
       <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
+        <button type="button" class="button--green" @click="CreateRequest">
+          создать тестовый запрос
+        </button>
+        <button type="button" class="button--grey">
           GitHub
-        </a>
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+
+  export default {
+    name: 'index',
+    data: () => {
+      return {
+
+      }
+    },
+    methods: {
+      CreateRequest(){
+        this.$axios.post('http://localhost:8080', {
+          value: 256,
+        }).then(response => {
+          console.log(response)
+        }).catch(error => {
+          console.log(error);
+        })
+      }
+    }
+  }
 </script>
 
 <style>
