@@ -13,7 +13,7 @@
           создать тестовый запрос на сервер автодеплоя
         </button>
       </div>
-      <p class="subtitle">version 1.0.24</p>
+      <p class="subtitle">version 1.0.25</p>
     </div>
   </div>
 </template>
