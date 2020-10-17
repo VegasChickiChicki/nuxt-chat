@@ -3,7 +3,7 @@
     <div>
       <Logo />
       <h1 class="title">
-        nuxt-autodeploy 152515
+        nuxt-chat
       </h1>
       <div class="links">
         <button type="button" class="button--green" @click="CreateRequest">
@@ -13,7 +13,7 @@
           GitHub
         </button>
       </div>
-      <p class="subtitle">version 1.0.7</p>
+      <p class="subtitle">version 1.0.8</p>
     </div>
   </div>
 </template>
