@@ -10,7 +10,7 @@
           создать тестовый запрос
         </button>
         <button type="button" class="button--grey">
-          GitHub
+          создать тестовый запрос на сервер автодеплоя
         </button>
       </div>
       <p class="subtitle">version 1.0.9</p>
@@ -30,6 +30,15 @@
     methods: {
       CreateRequest(){
         this.$axios.post('http://194.67.87.60:8080', {
+          value: 256,
+        }).then(response => {
+          console.log(response)
+        }).catch(error => {
+          console.log(error);
+        })
+      },
+      CreateRequestToAutodeployServer(){
+        this.$axios.post('http://194.67.87.60:2020', {
           value: 256,
         }).then(response => {
           console.log(response)
@@ -79,5 +88,9 @@
 
 .links {
   padding-top: 15px;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 24px;
 }
 </style>
