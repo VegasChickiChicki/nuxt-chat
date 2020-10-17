@@ -13,7 +13,7 @@
           GitHub
         </button>
       </div>
-      <p class="subtitle">version 1.0.1</p>
+      <p class="subtitle">version 1.0.2</p>
     </div>
   </div>
 </template>
