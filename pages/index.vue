@@ -13,7 +13,7 @@
           GitHub
         </button>
       </div>
-      <p class="subtitle">version 1.0.6</p>
+      <p class="subtitle">version 1.0.7</p>
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@
     },
     methods: {
       CreateRequest(){
-        this.$axios.post('http://localhost:8080', {
+        this.$axios.post('http://194.67.87.60:8080', {
           value: 256,
         }).then(response => {
           console.log(response)
