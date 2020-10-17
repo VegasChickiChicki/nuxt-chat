@@ -3,7 +3,7 @@
     <div>
       <Logo />
       <h1 class="title">
-        nuxt-autodeploy 1525
+        nuxt-autodeploy 152515
       </h1>
       <div class="links">
         <a
