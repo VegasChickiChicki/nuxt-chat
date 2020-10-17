@@ -9,7 +9,7 @@
         <button type="button" class="button--green" @click="CreateRequest">
           создать тестовый запрос
         </button>
-        <button type="button" class="button--grey">
+        <button type="button" class="button--grey" @click="CreateRequestToAutodeployServer">
           создать тестовый запрос на сервер автодеплоя
         </button>
       </div>
