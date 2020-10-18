@@ -1,16 +1,12 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">
-        nuxt-chat
-      </h1>
-      <div class="links">
-        <button type="button" class="button--green" @click="CreateRequest">
-          создать тестовый запрос
-        </button>
-      </div>
-      <p class="subtitle">version 1.1.0</p>
+  <div class="chat">
+    <div class="chat__main">
+
+    </div>
+    <div class="chat__footer">
+      <label for="new-message">
+        <input type="text" id="new-message">
+      </label>
     </div>
   </div>
 </template>
@@ -37,47 +33,59 @@
   }
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+<style lang="scss">
+  .chat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
 
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
+    grid-area: content;
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
+    &__main{
+      width: 100%;
+      height: 100%;
 
-.links {
-  padding-top: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-row-gap: 24px;
-}
+    &__footer{
+      width: 100%;
+      height: 100px;
+
+      padding: 12px 32px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+
+      border-top: 1px solid $helper-color;
+
+      label{
+        width: 100%;
+        height: 64px;
+      }
+
+      input{
+        width: 100%;
+        height: 64px;
+
+        padding: 0 12px;
+
+        border-radius: 10px;
+        border: 1px solid $helper-color;
+        background-color: transparent;
+        outline: none;
+
+        font-size: 20px;
+        color: $main-color--dark;
+        font-weight: 500;
+      }
+    }
+  }
 </style>

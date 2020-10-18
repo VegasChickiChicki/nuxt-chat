@@ -1,61 +1,33 @@
 <template>
-  <div>
+  <div class="main-case">
+    <header-component />
+    <aside-component />
     <Nuxt />
   </div>
 </template>
 
-<style>
-html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
+<script>
+  import HeaderComponent from "../components/header-component";
+  import AsideComponent from "../components/aside-component";
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-}
+  export default {
+    name: 'default-layout',
+    components: { AsideComponent, HeaderComponent },
+  }
+</script>
 
-.button--green {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #3b8070;
-  color: #3b8070;
-  text-decoration: none;
-  padding: 10px 30px;
-}
+<style lang="scss">
+  .main-case{
+    width: 100%;
+    height: 100%;
 
-.button--green:hover {
-  color: #fff;
-  background-color: #3b8070;
-}
+    min-height: 100vh;
 
-.button--grey {
-  display: inline-block;
-  border-radius: 4px;
-  border: 1px solid #35495e;
-  color: #35495e;
-  text-decoration: none;
-  padding: 10px 30px;
-}
+    display: grid;
+    grid-template-areas: 'aside header' 'aside content';
+    grid-template-columns: 420px calc(100vw - 420px);
+    grid-template-rows: 100px calc(100vh - 100px);
 
-.button--grey:hover {
-  color: #fff;
-  background-color: #35495e;
-}
+    background: linear-gradient(125deg, $main-color 0, $main-color--light 75%);
+  }
 </style>
