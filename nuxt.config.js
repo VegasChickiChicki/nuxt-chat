@@ -46,7 +46,7 @@ export default {
     // module options
     sockets: [{
       name: 'main',
-      url: 'http://194.67.87.60:8080',
+      url: process.env.NODE_ENV !== 'production'? 'http://localhost:8080' : 'http://194.67.87.60:8080',
       default: true,
     }]
   },
