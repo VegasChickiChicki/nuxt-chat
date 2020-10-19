@@ -46,7 +46,7 @@ export default {
     // module options
     sockets: [{
       name: 'main',
-      url: 'http://localhost:8080',
+      url: 'http://194.67.87.60:8080',
       default: true,
     }]
   },
