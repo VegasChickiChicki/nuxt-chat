@@ -14,7 +14,7 @@
     </div>
     <div class="site-info">
       <p class="site-info__name">nuxt-chat</p>
-      <p class="site-info__version">version - 1.1.2</p>
+      <p class="site-info__version">version - 1.1.3</p>
     </div>
   </header>
 </template>
