@@ -45,20 +45,6 @@
         this.socket.emit('NewMessage', this.NewMessage, response => {
           console.log('response socket emit: ', response);
         });
-
-        /*
-
-        this.$axios.post('http://localhost:8080/chat/new-message', {
-          NewMessage: this.NewMessage,
-        }).then(response => {
-          //console.log(response.data.data.NewMessage);
-
-          this.NewMessage = '';
-        }).catch(error => {
-          console.log(error);
-        })
-
-        */
       },
     }
   }
