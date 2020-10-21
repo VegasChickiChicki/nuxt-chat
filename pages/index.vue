@@ -39,6 +39,8 @@
         this.messages.push(message);
         console.log('update-chat, new message: ', message);
       });
+
+      console.log(this.$auth.$state);
     },
     methods: {
       SendMessage(){

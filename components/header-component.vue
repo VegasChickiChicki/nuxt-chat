@@ -14,7 +14,7 @@
     </div>
     <div class="site-info">
       <p class="site-info__name">nuxt-chat</p>
-      <p class="site-info__version">version - 1.1.9</p>
+      <p class="site-info__version">version - 1.2.0</p>
     </div>
   </header>
 </template>
@@ -44,6 +44,23 @@
     grid-area: header;
 
     border-bottom: 0.1rem solid $helper-color;
+
+    &__login{
+      width: auto;
+      height: auto;
+
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .btn-main{
+        width: 120px;
+
+        &:not(:last-of-type){
+          margin-right: 24px;
+        }
+      }
+    }
 
     .user-info{
       width: auto;
