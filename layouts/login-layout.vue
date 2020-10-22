@@ -1,13 +1,15 @@
 <template>
 	<div class="main-case login">
     <header class="header">
-      <div class="header__login">
-        <button type="button" class="btn-main btn--transparent" @click="ToggleLoginState(!LoginState)">Sign in</button>
-        <button type="button" class="btn-main btn--transparent" @click="ToggleLoginState(!LoginState)">Sign up</button>
-      </div>
-      <div class="site-info">
-        <p class="site-info__name">nuxt-chat</p>
-        <p class="site-info__version">version - 1.2.4</p>
+      <div class="header__wrapper">
+        <div class="header__login">
+          <button type="button" class="btn-main btn--transparent" @click="ToggleLoginState(!LoginState)">Sign in</button>
+          <button type="button" class="btn-main btn--transparent" @click="ToggleLoginState(!LoginState)">Sign up</button>
+        </div>
+        <div class="site-info">
+          <p class="site-info__name">nuxt-chat</p>
+          <p class="site-info__version">version - 1.2.5</p>
+        </div>
       </div>
     </header>
     <nuxt />

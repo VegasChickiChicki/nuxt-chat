@@ -46,15 +46,16 @@
 
       this.socket.on('update-chat', message => {
         this.messages.push(message);
-        console.log('update-chat, new message: ', message);
       });
 
-      console.log(this.$auth.$state);
+      this.socket.emit('connect-user', this.$auth.user.login, response => {
+        this.messages.push(response);
+      });
     },
     methods: {
       SendMessage(){
-        this.socket.emit('NewMessage', this.NewMessage, response => {
-          console.log('response socket emit: ', response);
+        this.socket.emit('new-message', this.NewMessage, response => {
+          console.log('new-message response: ', response);
         });
       },
     }

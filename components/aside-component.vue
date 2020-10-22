@@ -1,8 +1,5 @@
 <template>
 	<aside class="aside">
-    <div class="aside__head">
-      <button type="button" class="btn-main btn--transparent" @click="LogoutUser">Logout</button>
-    </div>
     <div class="aside__content">
       <ul class="aside-chats">
         <li class="aside-chats__item" v-for="chat in 8">
@@ -27,21 +24,6 @@
 <script>
   export default {
     name: 'aside-component',
-    methods: {
-      async LogoutUser(){
-        try {
-          await this.$auth.logout('local', {
-            data: {
-              UserId: this.$auth.user.id
-            }
-          });
-
-          this.$router.push('/login');
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    }
   }
 </script>
 
@@ -58,25 +40,6 @@
     grid-area: aside;
 
     border-right: 0.1rem solid $helper-color;
-
-    &__head{
-      width: 100%;
-      height: 100px;
-
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-
-      padding: 12px 24px;
-
-      flex-shrink: 0;
-
-      border-bottom: 0.1rem solid $helper-color;
-
-      .btn-main{
-        width: 50%;
-      }
-    }
 
     &__content{
       width: 100%;
