@@ -70,6 +70,10 @@
 
     font-size: 16px;
     font-weight: 400;
+
+    &:focus{
+      cursor: text;
+    }
   }
 
   &--default {

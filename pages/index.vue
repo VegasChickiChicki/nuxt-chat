@@ -1,11 +1,11 @@
 <template>
   <div class="chat">
     <div class="chat-main">
-      <ul class="chat-main__list">
+      <vue-custom-scrollbar class="chat-main__list" :settings="ScrollAreaSettings" :tagname="'ul'">
         <li class="chat-main__message" v-for="(message, index) in messages" :key="`message-${index}`">
           {{ message }}
         </li>
-      </ul>
+      </vue-custom-scrollbar>
     </div>
     <div class="chat-footer">
       <form class="chat-footer__message-area" @submit.prevent="SendMessage">
@@ -21,13 +21,22 @@
 </template>
 
 <script>
+  import vueCustomScrollbar from 'vue-custom-scrollbar'
+  import "vue-custom-scrollbar/dist/vueScrollbar.css"
+
   export default {
     name: 'index',
+    components: { vueCustomScrollbar },
     data: () => {
       return {
         NewMessage: '',
         socket: null,
-        messages: []
+        messages: [],
+        ScrollAreaSettings: {
+          suppressScrollY: false,
+          suppressScrollX: true,
+          wheelPropagation: false
+        }
       }
     },
     mounted() {
@@ -67,27 +76,24 @@
     width: 100%;
     height: 100%;
 
-    padding: 64px 32px;
+    padding: 16px 8px 32px 32px;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+
+    overflow: hidden;
 
     &__list{
       width: 100%;
-      height: 100%;
+      height: auto;
 
-      padding: 0;
+      padding: 0 48px 0 24px;
 
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-row-gap: 16px;
-      justify-content: flex-end;
-      align-content: flex-end;
-      justify-items: end;
-      align-items: end;
-
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
 
       list-style: none;
     }
@@ -106,6 +112,10 @@
       font-size: 20px;
       color: $main-color--dark;
       font-weight: 500;
+
+      &:not(:first-of-type){
+        margin-top: 24px;
+      }
     }
   }
 
@@ -167,5 +177,37 @@
       background-color: transparent;
       cursor: pointer;
     }
+  }
+</style>
+
+<style lang="scss">
+  .ps .ps__rail-x:hover,
+  .ps .ps__rail-y:hover,
+  .ps .ps__rail-x:focus,
+  .ps .ps__rail-y:focus,
+  .ps .ps__rail-x.ps--clicking,
+  .ps .ps__rail-y.ps--clicking {
+    background-color: transparent;
+    opacity: 1;
+  }
+
+  .ps__thumb-y {
+    background-color: $helper-color;
+    opacity: 0.5;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .ps__rail-y:hover > .ps__thumb-y,
+  .ps__rail-y:focus > .ps__thumb-y,
+  .ps__rail-y.ps--clicking .ps__thumb-y {
+    background-color: $helper-color;
+  }
+
+  .ps__rail-y:hover > .ps__thumb-y,
+  .ps__rail-y:focus > .ps__thumb-y,
+  .ps__rail-y.ps--clicking .ps__thumb-y {
+    opacity: 1;
+    width: 12px;
   }
 </style>

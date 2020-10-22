@@ -41,6 +41,11 @@ export default {
     'nuxt-socket-io',
   ],
 
+  layoutTransition: {
+    name: 'layout',
+    mode: 'out-in'
+  },
+
   io: {
     // module options
     sockets: [{

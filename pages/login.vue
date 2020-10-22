@@ -1,54 +1,58 @@
 <template>
   <div class="login-case">
-    <form class="login-form" @submit.prevent="LoginUser" v-if="LoginState">
-      <p class="login-form__title">Sign up</p>
-      <input-component
-        class="input-text--default"
-        :name="'login-login'"
-        :title="'Email / Login'"
-        :helper-text="this.errors.find(el => el.type === 'email/login' || el.type === 'auth') ? this.errors.find(el => el.type === 'email/login' || el.type === 'auth').text :''"
-        :class="{ 'input-text--error': this.errors.find(el => el.type === 'email/login' || el.type === 'auth') }"
-        v-model="user.login"
-      />
-      <input-component
-        class="input-text--default"
-        :name="'login-password'"
-        :title="'Password'"
-        :helper-text="this.errors.find(el => el.type === 'password' || el.type === 'auth') ? this.errors.find(el => el.type === 'password' || el.type === 'auth').text : ''"
-        :class="{ 'input-text--error': this.errors.find(el => el.type === 'password' || el.type === 'auth') }"
-        v-model="user.password"
-      />
-      <button type="submit" class="btn-main btn--transparent">login</button>
-    </form>
+    <transition name="login-form" mode="out-in">
+      <form class="login-form" :key="'LoginUserForm'" @submit.prevent="LoginUser" v-if="LoginState">
+        <p class="login-form__title">Sign up</p>
+        <input-component
+          class="input-text--default"
+          :name="'login-login'"
+          :title="'Email / Login'"
+          :helper-text="this.errors.find(el => el.type === 'email/login' || el.type === 'auth') ? this.errors.find(el => el.type === 'email/login' || el.type === 'auth').text :''"
+          :class="{ 'input-text--error': this.errors.find(el => el.type === 'email/login' || el.type === 'auth') }"
+          v-model="user.login"
+        />
+        <input-component
+          class="input-text--default"
+          :name="'login-password'"
+          :title="'Password'"
+          :type="'password'"
+          :helper-text="this.errors.find(el => el.type === 'password' || el.type === 'auth') ? this.errors.find(el => el.type === 'password' || el.type === 'auth').text : ''"
+          :class="{ 'input-text--error': this.errors.find(el => el.type === 'password' || el.type === 'auth') }"
+          v-model="user.password"
+        />
+        <button type="submit" class="btn-main btn--transparent">login</button>
+      </form>
 
-    <form class="login-form" @submit.prevent="RegisterUser" v-else>
-      <p class="login-form__title">Sign in</p>
-      <input-component
-        class="input-text--default"
-        :name="'register-email'"
-        :title="'Email'"
-        :helper-text="this.errors.find(el => el.type === 'email') ? this.errors.find(el => el.type === 'email').text : ''"
-        :class="{ 'input-text--error': this.errors.find(el => el.type === 'email') }"
-        v-model="user.email"
-      />
-      <input-component
-        class="input-text--default"
-        :name="'register-name'"
-        :title="'Login'"
-        :helper-text="this.errors.find(el => el.type === 'login') ? this.errors.find(el => el.type === 'login').text :''"
-        :class="{ 'input-text--error': this.errors.find(el => el.type === 'login') }"
-        v-model="user.login"
-      />
-      <input-component
-        class="input-text--default"
-        :name="'register-password'"
-        :title="'Password'"
-        :helper-text="this.errors.find(el => el.type === 'password') ? this.errors.find(el => el.type === 'password').text :''"
-        :class="{ 'input-text--error': this.errors.find(el => el.type === 'password') }"
-        v-model="user.password"
-      />
-      <button type="submit" class="btn-main btn--transparent">register</button>
-    </form>
+      <form class="login-form" :key="'RegisterUserForm'" @submit.prevent="RegisterUser" v-else>
+        <p class="login-form__title">Sign in</p>
+        <input-component
+          class="input-text--default"
+          :name="'register-email'"
+          :title="'Email'"
+          :helper-text="this.errors.find(el => el.type === 'email') ? this.errors.find(el => el.type === 'email').text : ''"
+          :class="{ 'input-text--error': this.errors.find(el => el.type === 'email') }"
+          v-model="user.email"
+        />
+        <input-component
+          class="input-text--default"
+          :name="'register-name'"
+          :title="'Login'"
+          :helper-text="this.errors.find(el => el.type === 'login') ? this.errors.find(el => el.type === 'login').text :''"
+          :class="{ 'input-text--error': this.errors.find(el => el.type === 'login') }"
+          v-model="user.login"
+        />
+        <input-component
+          class="input-text--default"
+          :name="'register-password'"
+          :title="'Password'"
+          :type="'password'"
+          :helper-text="this.errors.find(el => el.type === 'password') ? this.errors.find(el => el.type === 'password').text :''"
+          :class="{ 'input-text--error': this.errors.find(el => el.type === 'password') }"
+          v-model="user.password"
+        />
+        <button type="submit" class="btn-main btn--transparent">register</button>
+      </form>
+    </transition>
   </div>
 </template>
 
@@ -164,6 +168,15 @@
       margin-top: 48px;
 
       align-self: flex-end;
+    }
+
+    &-enter-active, &-leave-active {
+      transition: opacity 0.25s, transform ease 0.25s;
+    }
+
+    &-enter, &-leave-to{
+      opacity: 0;
+      transform: translateY(-32px);
     }
   }
 </style>
