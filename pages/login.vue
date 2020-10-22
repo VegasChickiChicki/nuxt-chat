@@ -72,7 +72,7 @@
     },
     methods: {
       RegisterUser() {
-        this.$axios.post('http://localhost:8080/api/user/register', {
+        this.$axios.post('user/register', {
           data: this.user
         }).then(async response => {
           if (!response.data.status){
