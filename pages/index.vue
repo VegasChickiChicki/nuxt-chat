@@ -2,8 +2,12 @@
   <div class="chat">
     <div class="chat-main">
       <vue-custom-scrollbar class="chat-main__list" :settings="ScrollAreaSettings" :tagname="'ul'">
-        <li class="chat-main__message" v-for="(message, index) in messages" :key="`message-${index}`">
-          {{ message }}
+        <li class="chat-message" v-for="(message, index) in messages" :key="`message-${index}`">
+          <div class="chat-message__head">
+            <span class="chat-message__author">{{ message.user }}</span>
+            <span class="chat-message__date">{{ message.date }}</span>
+          </div>
+          <span class="chat-message__text">{{ message.message }}</span>
         </li>
       </vue-custom-scrollbar>
     </div>
@@ -44,17 +48,22 @@
         channel: '/'
       });
 
-      this.socket.on('update-chat', message => {
-        this.messages.push(message);
+      this.socket.emit('connect-user', {
+        user: this.$auth.user.login,
+      }, response => {
+        this.messages.push(response);
       });
 
-      this.socket.emit('connect-user', this.$auth.user.login, response => {
-        this.messages.push(response);
+      this.socket.on('update-chat', data => {
+        this.messages.push(data);
       });
     },
     methods: {
       SendMessage(){
-        this.socket.emit('new-message', this.NewMessage, response => {
+        this.socket.emit('new-message', {
+          message: this.NewMessage,
+          user: this.$auth.user.login
+        }, response => {
           console.log('new-message response: ', response);
         });
       },
@@ -97,26 +106,6 @@
       align-items: flex-end;
 
       list-style: none;
-    }
-
-    &__message{
-      width: auto;
-      height: auto;
-
-      padding: 16px 24px;
-
-      text-align: left;
-
-      background-color: $main-color;
-      border-radius: 10px;
-
-      font-size: 20px;
-      color: $main-color--dark;
-      font-weight: 500;
-
-      &:not(:first-of-type){
-        margin-top: 24px;
-      }
     }
   }
 
@@ -177,6 +166,57 @@
       outline: none;
       background-color: transparent;
       cursor: pointer;
+    }
+  }
+
+  .chat-message{
+    width: auto;
+    height: auto;
+
+    padding: 16px 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    text-align: left;
+
+    background-color: $main-color;
+    border-radius: 10px;
+
+    &:not(:first-of-type){
+      margin-top: 24px;
+    }
+
+    &__head{
+      width: auto;
+      height: auto;
+
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    &__author, &__date{
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      color: $main-color--dark;
+      font-weight: 400;
+    }
+
+    &__date{
+      margin-left: 16px;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    &__text{
+      font-family: 'Roboto', sans-serif;
+      margin-top: 4px;
+
+      font-size: 20px;
+      color: $main-color--dark;
+      font-weight: 500;
     }
   }
 </style>

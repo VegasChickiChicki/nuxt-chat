@@ -39,7 +39,9 @@
             channel: '/'
           });
 
-          this.socket.emit('disconnect-user', this.$auth.user.login, response => {
+          this.socket.emit('disconnect-user', {
+            user: this.$auth.user.login,
+          }, response => {
             console.log('connect-user response: ', response);
             this.messages.push(response);
           });
