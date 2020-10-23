@@ -1,8 +1,8 @@
 <template>
   <div class="login-case">
     <transition name="login-form" mode="out-in">
-      <form class="login-form" :key="'LoginUserForm'" @submit.prevent="LoginUser" v-if="LoginState">
-        <p class="login-form__title">Sign up</p>
+      <form class="default-form" :key="'LoginUserForm'" @submit.prevent="LoginUser" v-if="LoginState">
+        <p class="default-form__title">Sign up</p>
         <input-component
           class="input-text--default"
           :name="'login-login'"
@@ -23,8 +23,8 @@
         <button type="submit" class="btn-main btn--transparent">login</button>
       </form>
 
-      <form class="login-form" :key="'RegisterUserForm'" @submit.prevent="RegisterUser" v-else>
-        <p class="login-form__title">Sign in</p>
+      <form class="default-form" :key="'RegisterUserForm'" @submit.prevent="RegisterUser" v-else>
+        <p class="default-form__title">Sign in</p>
         <input-component
           class="input-text--default"
           :name="'register-email'"
@@ -143,33 +143,6 @@
   }
 
   .login-form{
-    width: 360px;
-    height: 480px;
-
-    padding: 24px 48px;
-
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto 1fr;
-    grid-row-gap: 8px;
-    align-content: flex-start;
-
-    border: 1px solid $helper-color;
-    border-radius: 10px;
-
-    &__title{
-      text-align: center;
-      font-size: 24px;
-      font-weight: 500;
-      color: $main-color--dark;
-    }
-
-    .btn-main{
-      margin-top: 48px;
-
-      align-self: flex-end;
-    }
-
     &-enter-active, &-leave-active {
       transition: opacity 0.25s, transform ease 0.25s;
     }

@@ -2,7 +2,7 @@
 	<aside class="aside">
     <div class="aside__content">
       <ul class="aside-chats">
-        <li class="aside-chats__item" v-for="chat in 8">
+        <li class="aside-chats__item" v-for="chat in 0">
           <div class="user-info">
             <div class="user-info__icon">
 

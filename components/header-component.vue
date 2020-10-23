@@ -2,6 +2,7 @@
   <header class="header">
     <div class="header__options">
       <button type="button" class="btn-main btn--transparent" @click="LogoutUser">Logout</button>
+      <button type="button" class="btn-main btn--transparent" @click="ToggleCreateChatPopupState(!CreateChatPopupState)">Create Chat</button>
     </div>
     <div class="header__wrapper">
       <div class="user-info">
@@ -11,28 +12,36 @@
         <div class="user-info__description">
           <p class="user-info__status user-info__status--active">online</p>
           <p class="user-info__name">
-            Las Vegas
-            <span class="user-info__id">#VegasChicki</span>
+            {{ CurrentUser }}
+            <span class="user-info__id">#{{ CurrentUser }}</span>
           </p>
         </div>
       </div>
       <div class="site-info">
         <p class="site-info__name">nuxt-chat</p>
-        <p class="site-info__version">version - 1.2.6</p>
+        <p class="site-info__version">version - 1.2.7</p>
       </div>
     </div>
   </header>
 </template>
 
 <script>
+  import { mapGetters, mapMutations } from 'vuex';
+
   export default {
     name: 'header-component',
     data: () => {
       return {
-
+        CurrentUser: ''
       }
     },
+    mounted() {
+      this.CurrentUser = this.$auth.user.login;
+    },
     methods: {
+      ...mapMutations({
+        ToggleCreateChatPopupState: 'ToggleCreateChatPopupState',
+      }),
       async LogoutUser(){
         try {
           this.socket = this.$nuxtSocket({
@@ -56,7 +65,12 @@
         } catch (error) {
           console.log(error);
         }
-      }
+      },
+    },
+    computed: {
+      ...mapGetters({
+        CreateChatPopupState: 'CreateChatPopupState'
+      })
     }
   }
 </script>
