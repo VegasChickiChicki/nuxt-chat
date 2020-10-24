@@ -62,30 +62,6 @@
   }
 }
 
-.site-info{
-  width: auto;
-  height: auto;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-end;
-
-  &__name{
-    font-size: 24px;
-    color: $main-color--dark;
-    font-weight: 500;
-  }
-
-  &__version{
-    margin-top: 8px;
-
-    font-size: 16px;
-    color: $main-color--dark;
-    font-weight: 300;
-  }
-}
-
 .user-info{
   width: 100%;
   height: auto;
@@ -120,28 +96,47 @@
     align-items: flex-start;
   }
 
-  &__status, &__name, &__id{
-    color: $main-color--dark;
-  }
-
-  &__status{
-    font-size: 12px;
-    font-weight: 300;
-  }
-
   &__name{
     margin-top: 4px;
 
+    color: $main-color--dark;
     font-size: 20px;
     font-weight: 500;
   }
+}
 
-  &__id{
-    margin-left: 4px;
+.user-settings{
+  width: auto;
+  height: auto;
 
-    font-size: 16px;
-    font-weight: 300;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 
+  &__option{
+    width: 48px;
+    height: 48px;
+
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: transparent;
+    border: none;
+    outline: none;
     cursor: pointer;
+
+    &:not(:first-of-type){
+      margin-left: 16px;
+    }
+
+    svg{
+      width: 32px;
+      height: 32px;
+
+      fill: $main-color--dark;
+    }
   }
 }

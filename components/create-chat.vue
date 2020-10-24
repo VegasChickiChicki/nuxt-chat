@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import { mapMutations, mapActions } from 'vuex';
+  import { mapGetters, mapMutations, mapActions } from 'vuex';
 
   import PopupComponent from "./popup-component";
   import InputComponent from "./input-component";
@@ -46,7 +46,7 @@
           data: {
             name: this.ChatName,
             user: {
-              name: this.$auth.user.login,
+              name: this.UserInfo.login,
             }
           }
         }).then(response => {
@@ -60,6 +60,11 @@
           }
         })
       },
+    },
+    computed: {
+      ...mapGetters({
+        UserInfo: 'user/info',
+      })
     },
     watch: {
       state: function (value) {

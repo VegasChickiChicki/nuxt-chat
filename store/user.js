@@ -1,10 +1,10 @@
 export const state = () => ({
-  user: {},
+  info: {},
 });
 
 export const mutations = {
   SetUser(state, user){
-    state.user = user;
+    state.info = user;
   },
 };
 
@@ -25,5 +25,5 @@ export const actions = {
 };
 
 export const getters = {
-  user: state => state.user
+  info: state => state.info
 };

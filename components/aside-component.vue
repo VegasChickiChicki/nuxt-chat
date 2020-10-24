@@ -11,10 +11,8 @@
 
             </div>
             <div class="user-info__description">
-              <p class="user-info__status user-info__status--active">online</p>
               <p class="user-info__name">
                 {{ chat.name }}
-                <span class="user-info__id">#{{ chat.name }}</span>
               </p>
             </div>
           </nuxt-link>
@@ -97,7 +95,7 @@
       transition: background-color ease 0.25s;
 
       &:hover{
-        background-color: $main-color--light;
+        background-color: rgba(154, 181, 145, 0.275);
       }
     }
 

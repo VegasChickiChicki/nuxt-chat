@@ -5,7 +5,7 @@
         <transition-group name="chat-message" tag="ul" class="chat__list" ref="chat-main__scroll-area">
           <li class="chat-message"
               v-for="(message, index) in messages" :key="`message-${index}`"
-              :class="message.user === user.login ? 'chat-message--right' : 'chat-message--left'"
+              :class="message.user === UserInfo.login ? 'chat-message--right' : 'chat-message--left'"
           >
             <div class="chat-message__head">
               <span class="chat-message__author">{{ message.user }}</span>
@@ -21,7 +21,7 @@
         <input type="text" autocomplete="off" id="new-message" class="chat-footer__message-text" v-model="NewMessage">
 
         <button type="submit" class="chat-footer__message-submit">
-
+          <svg-icon name="double-arrow-icon"/>
         </button>
       </form>
 
@@ -50,13 +50,6 @@
 
       this.socket = this.$nuxtSocket({
         channel: '/'
-      });
-
-      this.socket.emit('connect-user', {
-        user: {
-          name: this.user.login
-        },
-        message: `${this.user.login} logged in to the chat`
       });
 
       this.socket.on('update-chat', data => {
@@ -89,7 +82,7 @@
               name: this.$route.params.id
             },
             user: {
-              name: this.user.login
+              name: this.UserInfo.login
             },
             message: this.NewMessage,
           });
@@ -108,7 +101,7 @@
     },
     computed: {
       ...mapGetters({
-        user: 'user/user',
+        UserInfo: 'user/info',
         chats: 'chats/chats',
       }),
       messages(){

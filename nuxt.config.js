@@ -46,12 +46,18 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/style-resources',
     '@nuxtjs/auth',
+    '@nuxtjs/svg-sprite',
     'nuxt-socket-io',
   ],
 
   layoutTransition: {
     name: 'layout',
     mode: 'out-in'
+  },
+
+  svgSprite: {
+    input: '~/assets/images/svg/',
+    output: '~/assets/images/svg-sprite'
   },
 
   io: {

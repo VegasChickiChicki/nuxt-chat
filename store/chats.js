@@ -34,11 +34,11 @@ export const actions = {
       }
     });
   },
-  async GetChatsList({ commit }){
+  async GetChatsList({ commit, rootState }){
     await this.$axios.get('/chat/options/list', {
       params: {
         user: {
-          name: this.$auth.user.login,
+          name: rootState.user.info.login,
         }
       }
     }).then(response => {
