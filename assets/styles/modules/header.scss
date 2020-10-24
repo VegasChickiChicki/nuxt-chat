@@ -8,7 +8,7 @@
 
   grid-area: header;
 
-  border-bottom: 0.1rem solid $helper-color;
+  border-bottom: 1px solid $helper-color;
 
   &__options{
     width: 420px;
@@ -22,7 +22,7 @@
 
     flex-shrink: 0;
 
-    border-right: 0.1rem solid $helper-color;
+    border-right: 1px solid $helper-color;
 
     .btn-main{
       width: calc(50% - 12px)

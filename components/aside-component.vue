@@ -39,7 +39,7 @@
 
     grid-area: aside;
 
-    border-right: 0.1rem solid $helper-color;
+    border-right: 1px solid $helper-color;
 
     &__content{
       width: 100%;

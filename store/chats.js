@@ -12,8 +12,8 @@ export const mutations = {
 };
 
 export const actions = {
-  GetMessagesList({ commit }){
-    this.$axios.get('/chat/messages/list', {
+  async GetMessagesList({ commit }){
+    await this.$axios.get('/chat/messages/list', {
       params: {
         ChatName: 'BlueSky'
       }
