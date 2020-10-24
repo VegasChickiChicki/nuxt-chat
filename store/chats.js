@@ -1,6 +1,5 @@
 export const state = () => ({
   chats: [],
-  messages: [],
 });
 
 export const mutations = {
@@ -10,25 +9,28 @@ export const mutations = {
   UpdateChats(state, chat){
     state.chats.unshift(chat);
   },
-  SetMessages(state, messages){
-    state.messages = messages;
+  ChatSetMessages(state, data){
+    state.chats.find(el => el.name === data.ChatName).messages = data.messages;
   },
-  UpdateMessages(state, message){
-    state.messages.push(message);
+  ChatUpdateMessages(state, data){
+    state.chats.find(el => el.name === data.ChatName).messages.push(data.message);
   },
 };
 
 export const actions = {
-  async GetMessagesList({ commit }){
+  async GetMessagesList({ commit }, ChatName){
     await this.$axios.get('/chat/messages/list', {
       params: {
         chat: {
-          name: 'BlueSky',
+          name: ChatName,
         }
       }
     }).then(response => {
       if (response.data.status){
-        commit('SetMessages', response.data.body.messages);
+        commit('ChatSetMessages', {
+          ChatName: ChatName,
+          messages: response.data.body.messages
+        });
       }
     });
   },
@@ -41,13 +43,18 @@ export const actions = {
       }
     }).then(response => {
       if (response.data.status){
-        commit('SetChats', response.data.body.chats);
+        const ChatsList = response.data.body.chats;
+
+        ChatsList.forEach(el => {
+          el.messages = []
+        });
+
+        commit('SetChats', ChatsList);
       }
     });
   },
 };
 
 export const getters = {
-  messages: state => state.messages,
   chats: state => state.chats
 };

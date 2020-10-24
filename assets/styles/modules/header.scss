@@ -94,6 +94,8 @@
   justify-content: flex-start;
   align-items: center;
 
+  text-decoration: none;
+
   &__icon{
     width: 64px;
     height: 64px;
@@ -118,9 +120,12 @@
     align-items: flex-start;
   }
 
+  &__status, &__name, &__id{
+    color: $main-color--dark;
+  }
+
   &__status{
     font-size: 12px;
-    color: $main-color--dark;
     font-weight: 300;
   }
 
@@ -128,7 +133,6 @@
     margin-top: 4px;
 
     font-size: 20px;
-    color: $main-color--dark;
     font-weight: 500;
   }
 
@@ -136,7 +140,6 @@
     margin-left: 4px;
 
     font-size: 16px;
-    color: $main-color--dark;
     font-weight: 300;
 
     cursor: pointer;

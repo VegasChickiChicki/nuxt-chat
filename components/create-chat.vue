@@ -55,10 +55,19 @@
           } else {
             this.UpdateChats(response.data.body.chat);
             this.ToggleCreateChatPopupState(false);
+            this.$router.push(`/chat/${this.ChatName}`);
+            this.ChatName = '';
           }
         })
       },
     },
+    watch: {
+      state: function (value) {
+        if (!value){
+          this.errors = [];
+        }
+      }
+    }
   }
 </script>
 

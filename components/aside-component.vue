@@ -2,8 +2,11 @@
 	<aside class="aside">
     <div class="aside__content">
       <transition-group name="aside-chats" class="aside-chats" tag="ul">
-        <li class="aside-chats__item" v-for="chat in chats" :key="`chan-${chat.name}`">
-          <div class="user-info">
+        <li class="aside-chats__item"
+            v-for="chat in chats"
+            :key="`chan-${chat.name}`"
+        >
+          <nuxt-link class="user-info" :to="`/chat/${chat.name}`">
             <div class="user-info__icon">
 
             </div>
@@ -14,7 +17,7 @@
                 <span class="user-info__id">#{{ chat.name }}</span>
               </p>
             </div>
-          </div>
+          </nuxt-link>
         </li>
       </transition-group>
     </div>
@@ -22,10 +25,15 @@
 </template>
 
 <script>
-  import  { mapGetters } from 'vuex';
+  import  { mapGetters, mapActions } from 'vuex';
 
   export default {
     name: 'aside-component',
+    methods: {
+      ...mapActions({
+        GetMessagesList: 'chats/GetMessagesList',
+      }),
+    },
     computed: {
       ...mapGetters({
         chats: 'chats/chats',
