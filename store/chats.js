@@ -8,7 +8,7 @@ export const mutations = {
     state.chats = chats;
   },
   UpdateChats(state, chat){
-    state.chats.push(chat);
+    state.chats.unshift(chat);
   },
   SetMessages(state, messages){
     state.messages = messages;

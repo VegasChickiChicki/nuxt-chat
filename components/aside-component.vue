@@ -1,8 +1,8 @@
 <template>
 	<aside class="aside">
     <div class="aside__content">
-      <ul class="aside-chats">
-        <li class="aside-chats__item" v-for="chat in chats">
+      <transition-group name="aside-chats" class="aside-chats" tag="ul">
+        <li class="aside-chats__item" v-for="chat in chats" :key="`chan-${chat.name}`">
           <div class="user-info">
             <div class="user-info__icon">
 
@@ -16,7 +16,7 @@
             </div>
           </div>
         </li>
-      </ul>
+      </transition-group>
     </div>
   </aside>
 </template>
@@ -91,6 +91,17 @@
       &:hover{
         background-color: $main-color--light;
       }
+    }
+
+    &-enter-active, &-leave-active {
+      transition: opacity ease 0.35s;
+    }
+    &-enter, &-leave-to{
+      opacity: 0;
+    }
+
+    &-move {
+      transition: transform ease 0.35s;
     }
   }
 </style>

@@ -6,10 +6,7 @@
           <button type="button" class="btn-main btn--transparent" @click="ToggleLoginState(!LoginState)">Sign in</button>
           <button type="button" class="btn-main btn--transparent" @click="ToggleLoginState(!LoginState)">Sign up</button>
         </div>
-        <div class="site-info">
-          <p class="site-info__name">nuxt-chat</p>
-          <p class="site-info__version">version - 1.2.10</p>
-        </div>
+        <header-component-site-info />
       </div>
     </header>
     <nuxt />
@@ -19,8 +16,11 @@
 <script>
   import { mapGetters, mapMutations } from 'vuex';
 
+  import HeaderComponentSiteInfo from "../components/header-component--site-info";
+
   export default {
     name: 'login-layout',
+    components: { HeaderComponentSiteInfo },
     methods: {
       ...mapMutations({
         ToggleLoginState: 'login-page/ToggleLoginState'

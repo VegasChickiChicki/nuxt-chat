@@ -17,10 +17,7 @@
           </p>
         </div>
       </div>
-      <div class="site-info">
-        <p class="site-info__name">nuxt-chat</p>
-        <p class="site-info__version">version - 1.2.10</p>
-      </div>
+      <header-component-site-info />
     </div>
   </header>
 </template>
@@ -28,8 +25,11 @@
 <script>
   import { mapGetters, mapMutations } from 'vuex';
 
+  import HeaderComponentSiteInfo from "./header-component--site-info";
+
   export default {
     name: 'header-component',
+    components: { HeaderComponentSiteInfo },
     data: () => {
       return {
         LoadingState: true,
