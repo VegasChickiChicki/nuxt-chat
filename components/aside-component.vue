@@ -2,7 +2,7 @@
 	<aside class="aside">
     <div class="aside__content">
       <ul class="aside-chats">
-        <li class="aside-chats__item" v-for="chat in 0">
+        <li class="aside-chats__item" v-for="chat in chats">
           <div class="user-info">
             <div class="user-info__icon">
 
@@ -10,8 +10,8 @@
             <div class="user-info__description">
               <p class="user-info__status user-info__status--active">online</p>
               <p class="user-info__name">
-                Las Vegas
-                <span class="user-info__id">#VegasChicki</span>
+                {{ chat.name }}
+                <span class="user-info__id">#{{ chat.name }}</span>
               </p>
             </div>
           </div>
@@ -22,8 +22,15 @@
 </template>
 
 <script>
+  import  { mapGetters } from 'vuex';
+
   export default {
     name: 'aside-component',
+    computed: {
+      ...mapGetters({
+        chats: 'chats/chats',
+      })
+    },
   }
 </script>
 

@@ -12,6 +12,7 @@ export const actions = {
   async nuxtServerInit({ commit, dispatch }, VuexContext){
     commit('user/SetUser', VuexContext.$auth.$state.user);
 
+    await dispatch('chats/GetChatsList');
     await dispatch('chats/GetMessagesList');
   },
 };

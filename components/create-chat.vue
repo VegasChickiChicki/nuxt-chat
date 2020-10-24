@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import { mapMutations } from 'vuex';
+  import { mapMutations, mapActions } from 'vuex';
 
   import PopupComponent from "./popup-component";
   import InputComponent from "./input-component";
@@ -39,6 +39,7 @@
     methods: {
       ...mapMutations({
         ToggleCreateChatPopupState: 'ToggleCreateChatPopupState',
+        UpdateChats: 'chats/UpdateChats',
       }),
       async CreateChat(){
         this.$axios.post('chat/options/create', {
@@ -52,6 +53,7 @@
           if (!response.data.status){
             this.errors = response.data.errors;
           } else {
+            this.UpdateChats(response.data.body.chat);
             this.ToggleCreateChatPopupState(false);
           }
         })

@@ -96,6 +96,7 @@
     computed: {
       ...mapGetters({
         user: 'user/user',
+        chats: 'chats/chats',
         messages: 'chats/messages',
       })
     },
