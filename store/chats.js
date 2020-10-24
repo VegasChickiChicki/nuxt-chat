@@ -3,8 +3,8 @@ export const state = () => ({
 });
 
 export const mutations = {
-  SetMessages(state, chats){
-    state.messages = chats;
+  SetMessages(state, messages){
+    state.messages = messages;
   },
   UpdateMessages(state, chat){
     state.messages.push(chat);
@@ -18,10 +18,10 @@ export const actions = {
         ChatName: 'BlueSky'
       }
     }).then(response => {
-      if (response.status){
+      if (response.data.status){
         commit('SetMessages', response.data.body.messages);
       }
-    })
+    });
   }
 };
 

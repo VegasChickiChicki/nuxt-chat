@@ -12,14 +12,14 @@
         <div class="user-info__description">
           <p class="user-info__status user-info__status--active">online</p>
           <p class="user-info__name">
-            {{ CurrentUser }}
-            <span class="user-info__id">#{{ CurrentUser }}</span>
+            {{ this.user.login }}
+            <span class="user-info__id">#{{ this.user.login }}</span>
           </p>
         </div>
       </div>
       <div class="site-info">
         <p class="site-info__name">nuxt-chat</p>
-        <p class="site-info__version">version - 1.2.8</p>
+        <p class="site-info__version">version - 1.2.9</p>
       </div>
     </div>
   </header>
@@ -32,11 +32,15 @@
     name: 'header-component',
     data: () => {
       return {
-        CurrentUser: ''
+        LoadingState: true,
       }
     },
     mounted() {
-      this.CurrentUser = this.$auth.user.login;
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.LoadingState = false;
+        }, 475)
+      });
     },
     methods: {
       ...mapMutations({
@@ -69,6 +73,7 @@
     },
     computed: {
       ...mapGetters({
+        user: 'user/user',
         CreateChatPopupState: 'CreateChatPopupState'
       })
     }

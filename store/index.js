@@ -9,7 +9,11 @@ export const mutations = {
 };
 
 export const actions = {
+  async nuxtServerInit({ commit, dispatch }, VuexContext){
+    commit('user/SetUser', VuexContext.$auth.$state.user);
 
+    await dispatch('chats/GetMessagesList');
+  },
 };
 
 export const getters = {

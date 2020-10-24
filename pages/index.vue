@@ -5,7 +5,7 @@
         <transition-group name="chat-message" tag="ul" class="chat__list" ref="chat-main__scroll-area">
           <li class="chat-message"
               v-for="(message, index) in messages" :key="`message-${index}`"
-              :class="message.user === CurrentUser ? 'chat-message--right' : 'chat-message--left'"
+              :class="message.user === user.login ? 'chat-message--right' : 'chat-message--left'"
           >
             <div class="chat-message__head">
               <span class="chat-message__author">{{ message.user }}</span>
@@ -40,23 +40,16 @@
     data: () => {
       return {
         NewMessage: '',
-        CurrentUser: '',
         LoadingState: true,
       }
     },
     async mounted() {
-      this.CurrentUser = this.$auth.user.login;
-
-      if (this.messages.length === 0){
-        await this.GetMessagesList();
-      }
-
       this.socket = this.$nuxtSocket({
         channel: '/'
       });
 
       this.socket.emit('connect-user', {
-        user: this.$auth.user.login,
+        user: this.user.login,
       }, response => {
         this.UpdateMessages(response);
       });
@@ -66,11 +59,11 @@
       });
 
       this.$nextTick(() => {
-        this.ScrollChatDown();
+        this.ScrollChatDown(0);
 
         setTimeout(() => {
           this.LoadingState = false;
-        }, 950)
+        }, 475)
       });
     },
     methods: {
@@ -84,25 +77,26 @@
         if (this.NewMessage.length > 0){
           await this.socket.emit('new-message', {
             ChatName: 'BlueSky',
-            UserName: this.$auth.user.login,
+            UserName: this.user.login,
             message: this.NewMessage,
           });
 
           this.NewMessage = '';
         }
       },
-      ScrollChatDown(){
+      ScrollChatDown(duration = 575){
         this.$refs['chat-main'].scrollTo({
             y: this.$refs['chat-main__scroll-area'].$el.clientHeight
           },
-          475,
-          'easeInCubic'
+          duration,
+          'easeInQuart'
         );
       }
     },
     computed: {
       ...mapGetters({
-        messages: 'chats/messages'
+        user: 'user/user',
+        messages: 'chats/messages',
       })
     },
     watch: {
@@ -133,7 +127,7 @@
       justify-content: center;
       align-self: center;
 
-      padding: 24px 10px 24px 12px;
+      padding: 24px 0 24px 12px;
 
       overflow: hidden;
       transition: filter ease 0.35s;
@@ -151,27 +145,23 @@
       width: 100%;
       height: auto;
 
-      padding: 0 22px 0 24px;
+      padding: 0 32px 0 24px;
 
       display: flex;
       flex-direction: column;
 
-      transition: opacity ease 0.35s;
+      transition: opacity ease 0.125s;
       list-style: none;
     }
 
     &--loading{
-      .chat-wrapper{
+      .chat__wrapper{
         filter: blur(16px);
         pointer-events: none;
       }
 
       .chat__list{
         opacity: 0;
-      }
-
-      .__bar-is-vertical{
-        opacity: 0!important;
       }
     }
   }
@@ -301,9 +291,21 @@
 </style>
 
 <style lang="scss">
+  .__rail-is-vertical{
+    width: 32px!important;
+
+    &:hover{
+      .__bar-is-vertical{
+        opacity: 1!important;
+      }
+    }
+  }
   .__bar-is-vertical{
-    transition: opacity ease 0.35s;
+    width: 8px!important;
+    margin: 0 8px 0 16px!important;
     background-color: $main-color!important;
+    opacity: 0!important;
+    transition: opacity ease 0.35s;
   }
 
   .__view{
