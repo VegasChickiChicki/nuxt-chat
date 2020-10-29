@@ -3,8 +3,8 @@
     <header class="header">
       <div class="header__wrapper">
         <div class="header__login">
-          <button type="button" class="btn-main btn--transparent" @click="ToggleLoginState(!LoginState)">Sign in</button>
-          <button type="button" class="btn-main btn--transparent" @click="ToggleLoginState(!LoginState)">Sign up</button>
+          <button type="button" class="btn-main btn--transparent" @click="ToggleLoginState(false)">Sign in</button>
+          <button type="button" class="btn-main btn--transparent" @click="ToggleLoginState(true)">Sign up</button>
         </div>
       </div>
     </header>
@@ -29,12 +29,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-  .login{
-    .header{
-      grid-column-start: 1;
-      grid-column-end: -1;
-    }
-  }
-</style>

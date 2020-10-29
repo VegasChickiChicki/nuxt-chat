@@ -13,6 +13,7 @@
 <script>
   export default {
     name: 'index',
+    transition: 'home'
   }
 </script>
 
@@ -29,7 +30,7 @@
       width: auto;
       height: auto;
 
-      padding-top: 180px;
+      padding-top: 100px;
 
       display: flex;
       flex-direction: column;
@@ -38,14 +39,14 @@
     }
 
     &__title, &__content{
-      color: $main-color--dark;
+      color: $main-color;
       text-align: center;
     }
 
     &__title{
       font-size: 64px;
       font-weight: 500;
-      color: $main-color--dark;
+      color: $main-color;
     }
 
     &__content{
@@ -55,6 +56,14 @@
       font-size: 24px;
       font-weight: 400;
       line-height: 1.5;
+    }
+
+    &-enter-active, &-leave-active{
+      transition: opacity ease 0.275s;
+    }
+
+    &-enter, &-leave-to{
+      opacity: 0;
     }
   }
 </style>

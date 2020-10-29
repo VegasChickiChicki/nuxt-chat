@@ -1,11 +1,12 @@
 .chat {
+  width: 100%;
+  height: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   flex-grow: 1;
-
-  grid-area: content;
 
   &__wrapper{
     width: 100%;
@@ -15,10 +16,21 @@
     justify-content: center;
     align-self: center;
 
-    padding: 24px 0 24px 12px;
+    padding: 24px 0 8px 12px;
 
     overflow: hidden;
     transition: filter ease 0.35s;
+  }
+
+  &__helper-stage{
+    width: 100%;
+    height: 64px;
+
+    padding: 8px 32px 8px 12px;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 
   &__inner{
@@ -48,8 +60,8 @@
       pointer-events: none;
     }
 
-    .chat__list{
-      opacity: 0;
+    .chat__list, .__bar-wrap-is-vertical{
+      opacity: 0!important;
     }
   }
 }
@@ -67,7 +79,7 @@
 
   text-align: left;
 
-  background-color: $main-color;
+  background-color: $helper-color;
   border-radius: 10px;
 
   &:not(:first-of-type){
@@ -99,6 +111,7 @@
     font-family: 'Roboto', sans-serif;
     margin-top: 4px;
 
+    word-break: break-word;
     font-size: 20px;
     color: $main-color--dark;
     font-weight: 500;
@@ -112,8 +125,20 @@
     margin-left: auto;
   }
 
+  &--helper{
+    width: auto;
+
+    padding: 0;
+
+    background-color: transparent;
+  }
+
   &-enter-active, &-leave-active {
-    transition: opacity ease 0.5s;
+    transition: opacity ease 0.35s;
+  }
+
+  &-enter, &-leave-to {
+    opacity: 0;
   }
 }
 
@@ -128,7 +153,7 @@
   align-items: center;
   flex-shrink: 0;
 
-  border-top: 1px solid $helper-color;
+  border-top: 1px solid $main-color;
 
   &__message-area{
     width: 100%;
@@ -139,7 +164,7 @@
     align-items: center;
 
     border-radius: 10px;
-    border: 1px solid $helper-color;
+    border: 1px solid $main-color;
     background-color: transparent;
     outline: none;
     overflow: hidden;
@@ -152,7 +177,7 @@
     padding: 0 12px;
 
     font-size: 20px;
-    color: $main-color--dark;
+    color: $main-color;
     font-weight: 500;
 
     border: none;
@@ -170,7 +195,7 @@
     flex-shrink: 0;
 
     border: none;
-    border-left: 1px solid $helper-color;
+    border-left: 1px solid $main-color;
     outline: none;
     background-color: transparent;
     cursor: pointer;
@@ -179,7 +204,7 @@
       width: 32px;
       height: 32px;
 
-      fill: $main-color--dark;
+      fill: $main-color;
     }
   }
 }
@@ -187,18 +212,12 @@
 
 .__rail-is-vertical{
   width: 32px!important;
-
-  &:hover{
-    .__bar-is-vertical{
-      opacity: 1!important;
-    }
-  }
 }
 .__bar-is-vertical{
   width: 8px!important;
   margin: 0 8px 0 16px!important;
   background-color: $main-color!important;
-  opacity: 0!important;
+
   transition: opacity ease 0.35s;
 }
 

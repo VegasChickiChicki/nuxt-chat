@@ -1,13 +1,16 @@
 export const state = () => ({
   chats: [],
+  FoundChats: [],
 });
 
 export const mutations = {
-  SetChats(state, chats){
+  SetChatsList(state, chats){
     state.chats = chats;
   },
   UpdateChats(state, chat){
-    state.chats.unshift(chat);
+    if (!state.chats.find(el => el.name === chat.name)){
+      state.chats.unshift(chat);
+    }
   },
   ChatSetMessages(state, data){
     state.chats.find(el => el.name === data.ChatName).messages = data.messages;
@@ -15,6 +18,9 @@ export const mutations = {
   ChatUpdateMessages(state, data){
     state.chats.find(el => el.name === data.ChatName).messages.push(data.message);
   },
+  SetFoundChats(state, chats){
+    state.FoundChats = chats;
+  }
 };
 
 export const actions = {
@@ -49,12 +55,13 @@ export const actions = {
           el.messages = []
         });
 
-        commit('SetChats', ChatsList);
+        commit('SetChatsList', ChatsList);
       }
     });
   },
 };
 
 export const getters = {
-  chats: state => state.chats
+  list: state => state.chats,
+  FoundChats: state => state.FoundChats,
 };

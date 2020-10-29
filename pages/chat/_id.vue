@@ -16,15 +16,26 @@
         </transition-group>
       </vuescroll>
     </div>
+    <div class="chat__helper-stage">
+      <transition name="chat-message">
+        <div class="chat-message chat-message--helper" v-if="WritingUser.length > 0 && UserInfo.login !== WritingUser">
+          <span class="chat-message__text">
+            {{ this.WritingUser }} is typing a message...
+          </span>
+        </div>
+      </transition>
+    </div>
     <div class="chat-footer">
       <form class="chat-footer__message-area" @submit.prevent="SendMessage">
-        <input type="text" autocomplete="off" id="new-message" class="chat-footer__message-text" v-model="NewMessage">
-
+        <input type="text" autocomplete="off" id="new-message" class="chat-footer__message-text"
+               @focus="UserStartWriting"
+               @blur="UserStopWriting"
+               v-model="NewMessage"
+        >
         <button type="submit" class="chat-footer__message-submit">
           <svg-icon name="double-arrow-icon"/>
         </button>
       </form>
-
     </div>
   </div>
 </template>
@@ -41,23 +52,41 @@
       return {
         NewMessage: '',
         LoadingState: true,
+        WritingUser: '',
       }
     },
     async mounted() {
-      if (this.chats.find(el => el.name === this.$route.params.id).messages.length === 0){
-        await this.GetMessagesList(this.$route.params.id);
+      if (this.ChatsList.find(el => el.name === this.$route.params.id) !== undefined){
+        if (this.ChatsList.find(el => el.name === this.$route.params.id).hasOwnProperty('messages')){
+          if (this.ChatsList.find(el => el.name === this.$route.params.id).messages.length === 0){
+            await this.GetMessagesList(this.$route.params.id);
+          }
+
+          this.socket = this.$nuxtSocket({
+            channel: `/`
+          });
+
+          this.socket.emit('join-in-chat', {
+            chat: {
+              name: this.$route.params.id
+            },
+            user: {
+              name: this.UserInfo.login
+            }
+          });
+
+          this.socket.on('update-chat', data => {
+            this.ChatUpdateMessages({
+              ChatName: this.$route.params.id,
+              message: data,
+            });
+          });
+
+          this.socket.on('update-writing-user', data => {
+            this.WritingUser = data.user;
+          });
+        }
       }
-
-      this.socket = this.$nuxtSocket({
-        channel: '/'
-      });
-
-      this.socket.on('update-chat', data => {
-        this.ChatUpdateMessages({
-          ChatName: this.$route.params.id,
-          message: data,
-        });
-      });
 
       this.$nextTick(() => {
         this.ScrollChatDown(0);
@@ -90,6 +119,26 @@
           this.NewMessage = '';
         }
       },
+      UserStartWriting(){
+        this.socket.emit('user-start-writing', {
+          chat: {
+            name: this.$route.params.id
+          },
+          user: {
+            name: this.UserInfo.login
+          },
+        });
+      },
+      UserStopWriting(){
+        this.socket.emit('user-stop-writing', {
+          chat: {
+            name: this.$route.params.id
+          },
+          user: {
+            name: this.UserInfo.login
+          },
+        });
+      },
       ScrollChatDown(duration = 575){
         this.$refs['chat-main'].scrollTo({
             y: this.$refs['chat-main__scroll-area'].$el.clientHeight
@@ -102,10 +151,16 @@
     computed: {
       ...mapGetters({
         UserInfo: 'user/info',
-        chats: 'chats/chats',
+        ChatsList: 'chats/list',
       }),
       messages(){
-        return this.chats.find(el => el.name === this.$route.params.id).messages;
+        if (this.ChatsList.find(el => el.name === this.$route.params.id) !== undefined){
+          if (this.ChatsList.find(el => el.name === this.$route.params.id).hasOwnProperty('messages')){
+            return this.ChatsList.find(el => el.name === this.$route.params.id).messages;
+          }
+        }
+
+        return [];
       }
     },
     watch: {

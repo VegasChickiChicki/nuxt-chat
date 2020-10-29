@@ -1,32 +1,44 @@
 <template>
   <div class="main-case">
     <header-component />
-    <aside-component />
-    <Nuxt />
+    <chat-list-component/>
+    <user-profile-component />
 
-
-    <create-chat :state="CreateChatPopupState" @TogglePopup="ToggleCreateChatPopupState($event)"/>
+    <section class="main-case__wrapper">
+      <Nuxt />
+    </section>
   </div>
 </template>
 
 <script>
-  import { mapGetters, mapMutations } from 'vuex';
+  import { mapGetters, mapActions } from 'vuex';
 
   import HeaderComponent from "../components/header-component";
-  import AsideComponent from "../components/aside-component";
-  import CreateChat from "../components/create-chat";
+  import ChatListComponent from "../components/chat-list-component";
+  import UserProfileComponent from "../components/user-profile-component";
 
   export default {
     name: 'default-layout',
-    components: { CreateChat, AsideComponent, HeaderComponent },
+    components: { UserProfileComponent, ChatListComponent, HeaderComponent },
+    async mounted() {
+      if (Object.keys(this.UserInfo).length === 0){
+        await this.GetUserInfo();
+      }
+
+      if (this.ChatsList.length === 0){
+        await this.GetChatsList();
+      }
+    },
     methods: {
-      ...mapMutations({
-        ToggleCreateChatPopupState: 'ToggleCreateChatPopupState',
-      }),
+      ...mapActions({
+        GetUserInfo: 'user/GetUserInfo',
+        GetChatsList: 'chats/GetChatsList',
+      })
     },
     computed: {
       ...mapGetters({
-        CreateChatPopupState: 'CreateChatPopupState',
+        UserInfo: 'user/info',
+        ChatsList: 'chats/list',
       })
     }
   }

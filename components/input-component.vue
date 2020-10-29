@@ -1,7 +1,7 @@
 <template>
 	<div class="input-text">
     <label :for="`input-${type}-${name}`" class="input-text__wrapper">
-      <span class="input-text__title">{{ title }}</span>
+      <span class="input-text__title" v-if="title">{{ title }}</span>
       <input
         class="input-text__input"
         :type="type"
@@ -10,13 +10,14 @@
         :disabled="disabled"
         :placeholder="placeholder"
         :autocomplete="autocomplete"
+        @blur="$emit('blur-input')"
         @input="ChangeValue($event)"
       >
       <span class="input-text__footer">
         <transition name="input-text__footer-inner">
           <span class="input-text__footer-inner" v-if="HelperText && HelperText.length > 0">
-          {{ HelperText }}
-        </span>
+            {{ HelperText }}
+          </span>
         </transition>
       </span>
     </label>

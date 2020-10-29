@@ -3,13 +3,13 @@ export const state = () => ({
 });
 
 export const mutations = {
-  SetUser(state, user){
+  SetUserInfo(state, user){
     state.info = user;
   },
 };
 
 export const actions = {
-  async GetUser({ commit }){
+  async GetUserInfo({ commit }){
     await this.$axios.get('/user/info', {
       params: {
         user: {
@@ -18,7 +18,7 @@ export const actions = {
       }
     }).then(response => {
       if (response.data.status){
-        commit('SetUser', response.data.body.user);
+        commit('SetUserInfo', response.data.body.user);
       }
     });
   },
