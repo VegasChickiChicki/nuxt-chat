@@ -4,7 +4,7 @@
       <h1 class="home__title">Welcome to Nuxt-chat!</h1>
       <p class="home__content">If you want to start a chatting, you just need to join the chat. The chat list is
         located in the left sidebar. If the chat list is empty, you can create your own chat or find and join existing
-        chats.
+        chats...
       </p>
     </div>
   </div>
